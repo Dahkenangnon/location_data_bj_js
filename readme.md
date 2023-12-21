@@ -20,6 +20,8 @@ For raw data version, please visit [bj_location_data_raw](https://github.com/Dah
 > The `code` used in the dataset is an auto generated code. Please refer to the [bj_location_data_raw](https://github.com/Dahkenangnon/bj_location_data_raw) repository for more information.
 ------------------------
 
+## Demo
+Demo at: [https://dahkenangnon.github.io/location_data_bj_js/](https://dahkenangnon.github.io/location_data_bj_js/)
 
 ## Installation with npm
 ```bash
