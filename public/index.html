@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BjLocationData sample </title>
+        <style>
+            /* General styles for the widget container */
+            #locationDataBJ-widget {
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Styles for search container */
+            .search-container {
+                margin-bottom: 20px;
+            }
+
+            .search-container input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .search-results-container {
+                border-top: 1px solid #ccc;
+                padding-top: 10px;
+            }
+
+            /* Styles for select elements in the form */
+            select {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: white;
+            }
+
+            /* Style for individual containers */
+            .department-container,
+            .town-container,
+            .district-container,
+            .neighborhood-container {
+                margin-bottom: 10px;
+            }
+
+
+            /* Optional style , just for this page */
+            footer {
+                text-align: center;
+                margin-top: 50px;
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: #f1f1f1;
+                color: #333;
+                padding: 10px;
+            }
+
+            footer a {
+                color: #333;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            /* Highlight the JSON outputed in the state element  */
+            #state {
+                font-family: 'Courier New', monospace;
+                white-space:  'break-space';
+                /* Preserves the JSON formatting */
+                background-color: #f5f5f5;
+                /* Light grey background for contrast */
+                padding: 10px;
+                border-radius: 4px;
+                border: 1px solid #ddd;
+                overflow-x: auto;
+                /* Allows horizontal scrolling if needed */
+                color: #333;
+                /* Default text color */
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <h1 class="text-center">BjLocationData, javascript library</h1>
+        <p class="text-center">Simple javascript library to get location data of Benin Republic</p>
+
+        <!-- Your bj location holder element -->
+        <div id="bj-location-data-holder" class="bj-location-data-holder">Here</div>
+
+        <!-- State -->
+        <div id="state" class="text-center"></div>
+        <footer>
+            <p>Developed with ❤️ by <a href="https://dah-kenangnon.com" target="_blank">Dah Kenangnon</a></p>
+        </footer>
+        <!-- Now insert the script -->
+        <script src="./dist/bundle.js"></script>
+
+        <!-- Now initialize the script and start using it-->
+        <script>
+            let locationData = {
+                department: null,
+                town: null,
+                district: null,
+                neighborhood: null,
+            };
+            const stateDiv = document.getElementById('state');
+            stateDiv.innerHTML = JSON.stringify(locationData);
+
+                BjLocationData.init({
+                   // useSearch: true,
+                    holderQuerySelector: '#bj-location-data-holder',
+                    // departmentSelectLabel: 'Départment',
+                    // townSelectLabel: 'Sélectionner une commune',
+                    // districtSelectLabel: 'Sélectionner un arrondissement',
+                    // neighborhoodSelectLabel: 'Sélectionner un quartier',
+                    useHierarchy: true,
+                    searchPlaceholder: 'Rechercher une localité',
+                    searchNoResultsText: 'Aucun résultat trouvé',
+                    useDefaultSelect: true,
+                    level: ['town', 'neighborhood', 'district', 'department',],
+                    onChanges: (value) => {
+                        console.log("onChanges ", value)
+                    },
+
+                    onNeighborhoodChange: (value) => {
+                        locationData.neighborhood = value;
+                        stateDiv.innerHTML = JSON.stringify(locationData);
+                    },
+
+                    onDistrictChange: (value) => {
+                        locationData.district = value;
+                        stateDiv.innerHTML = JSON.stringify(locationData);
+                    },
+
+                    onTownChange: (value) => {
+                        locationData.town = value;
+                        stateDiv.innerHTML = JSON.stringify(locationData);
+                    },
+
+                    onDepartmentChange: (value) => {
+                        locationData.department = value;
+                        stateDiv.innerHTML = JSON.stringify(locationData);
+                    },
+                });
+            
+        </script>
+    </body>
+
+</html>
