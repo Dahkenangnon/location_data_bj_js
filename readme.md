@@ -49,41 +49,41 @@ You can download the latest version of location_data_bj from the [GitHub release
 ## API
 
 
-### `departmentList: (sortBy?: 'asc' | 'desc') => IDepartment[]` : Get all departments
+*`departmentList: (sortBy?: 'asc' | 'desc') => IDepartment[]`*: Get all departments
 
-### `townsList: (sortBy?: 'asc' | 'desc') => ITown[]` : Get all towns
+*`townsList: (sortBy?: 'asc' | 'desc') => ITown[]`* : Get all towns
 
-### `districtList: (sortBy?: 'asc' | 'desc') => IDistrict[]` : Get all districts
+*`districtList: (sortBy?: 'asc' | 'desc') => IDistrict[]`* : Get all districts
 
-### `neighborhoodList: (sortBy?: 'asc' | 'desc') => INeighborhood[]` : Get all neighborhoods
+*`neighborhoodList: (sortBy?: 'asc' | 'desc') => INeighborhood[]`* : Get all neighborhoods
 
-### `department: (code: string) => IDepartment | undefined` : Get a department by its code
+*`department: (code: string) => IDepartment | undefined`* : Get a department by its code
 
-### `town: (code: string) => ITown | undefined` : Get a town by its code
+*`town: (code: string) => ITown | undefined`* : Get a town by its code
 
-### `district: (code: string) => IDistrict | undefined` : Get a district by its code
+*`district: (code: string) => IDistrict | undefined`* : Get a district by its code
 
-### `neighborhood: (code: string) => INeighborhood | undefined` : Get a neighborhood by its code
+*`neighborhood: (code: string) => INeighborhood | undefined`* : Get a neighborhood by its code
 
-### `townsOfDepartment: (departmentCode: string, sortBy?: 'asc' | 'desc') => ITown[]` : Get towns of a specific department
+*`townsOfDepartment: (departmentCode: string, sortBy?: 'asc' | 'desc') => ITown[]`* : Get towns of a specific department
 
-### `districtsOfTown: (townCode: string, sortBy?: 'asc' | 'desc') => IDistrict[]` : Get districts of a specific town
+*`districtsOfTown: (townCode: string, sortBy?: 'asc' | 'desc') => IDistrict[]`* : Get districts of a specific town
 
-### `neighborhoodsOfDistrict: (districtCode: string, sortBy?: 'asc' | 'desc') => INeighborhood[]` : Get neighborhoods of a specific district
+*`neighborhoodsOfDistrict: (districtCode: string, sortBy?: 'asc' | 'desc') => INeighborhood[]`* : Get neighborhoods of a specific district
 
-### `searchData: (query: string, sortBy?: 'asc' | 'desc') => Array<BjLocationData>` : Search data in all categories (departments, towns, districts, neighborhoods)
+*`searchData: (query: string, sortBy?: 'asc' | 'desc') => Array<BjLocationData>`* : Search data in all categories (departments, towns, districts, neighborhoods)
 
-### `searchDepartments: (query: string, sortBy?: 'asc' | 'desc') => IDepartment[]` : Search departments by name
+*`searchDepartments: (query: string, sortBy?: 'asc' | 'desc') => IDepartment[]`* : Search departments by name
 
-### `searchTowns: (query: string, sortBy?: 'asc' | 'desc') => ITown[]` : Search towns by name
+*`searchTowns: (query: string, sortBy?: 'asc' | 'desc') => ITown[]`* : Search towns by name
 
-### `searchDistricts: (query: string, sortBy?: 'asc' | 'desc') => IDistrict[]` : Search districts by name
+*`searchDistricts: (query: string, sortBy?: 'asc' | 'desc') => IDistrict[]`* : Search districts by name
 
-### `searchNeighborhoods: (query: string, sortBy?: 'asc' | 'desc') => INeighborhood[]` : Search neighborhoods by name
+*`searchNeighborhoods: (query: string, sortBy?: 'asc' | 'desc') => INeighborhood[]`* : Search neighborhoods by name
 
-### `init: (options: BjLocationWidgetOptions) => void` : Find the widget holder element using the provided option and plug the widget in it.
+*`init: (options: BjLocationWidgetOptions) => void`* : Find the widget holder element using the provided option and plug the widget in it.
 
-### `BjLocationWidgetOptions` : Widget options
+*`BjLocationWidgetOptions`* : Widget options
     
 ```typescript
 interface BjLocationWidgetOptions {
@@ -107,7 +107,7 @@ interface BjLocationWidgetOptions {
 }
 ```
 
-### `BjLocationData` : Data object with type information
+*`BjLocationData`* : Data object with type information
 
 ```typescript
 interface BjLocationData {
@@ -117,13 +117,13 @@ interface BjLocationData {
 }
 ```
 
-### `BjLocationType` : Data type
+**`BjLocationType`** : Data type
 
 ```typescript
 type BjLocationType = 'Department' | 'Town' | 'District' | 'Neighborhood';
 ```
 
-### `IDepartment` : Department data object
+**`IDepartment`** : Department data object
 
 ```typescript
 interface IDepartment {
@@ -132,7 +132,7 @@ interface IDepartment {
 }
 ```
 
-### `ITown` : Town data object
+**`ITown`** : Town data object
 
 ```typescript
 interface ITown {
@@ -142,7 +142,7 @@ interface ITown {
 }
 ```
 
-### `IDistrict` : District data object
+**`IDistrict`** : District data object
 
 ```typescript
 interface IDistrict {
@@ -152,7 +152,7 @@ interface IDistrict {
 }
 ```
 
-### `INeighborhood` : Neighborhood data object
+**`INeighborhood`** : Neighborhood data object
 
 ```typescript
 interface INeighborhood {
