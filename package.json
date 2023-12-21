@@ -10,9 +10,13 @@
   "scripts": {
     "dev": "webpack --mode=development --watch",
     "build": "webpack --mode=production",
-    "test": "jest --notify  --detectOpenHandles",
+    "test:n": "jest --notify  --detectOpenHandles",
+    "test": "jest",
     "coverage": "jest --coverage",
     "test:watch": "jest --watch"
+  },
+  "engines": {
+    "node": ">=18.17.0"
   },
   "devDependencies": {
     "node-notifier": "^10.0.1",
