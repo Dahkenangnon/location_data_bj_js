@@ -1,7 +1,8 @@
 {
   "name": "location_data_bj",
-  "description": "Comprehensive Benin Republic territory data for web and JS apps",
-  "version": "1.0.0",
+  "main": "./public/dist/bundle.js",
+  "description": "Benin Republic territory data for web and JS apps",
+  "version": "1.0.1",
   "author": {
     "name": "Justin Y. Dah-kenangnon",
     "email": "dah.kenangnon@gmail.com"
@@ -15,6 +16,12 @@
     "coverage": "jest --coverage",
     "test:watch": "jest --watch"
   },
+  "files": [
+    "public/dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=18.17.0"
   },
@@ -27,5 +34,9 @@
     "typescript": "^5.2.2",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dahkenangnon/location_data_bj_js.git"
   }
 }
