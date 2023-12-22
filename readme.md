@@ -38,7 +38,7 @@ yarn add location_data_bj
 1. With a CDN
 
 ```html
-<script src="https://unpkg.com/location_data_bj"></script>
+<script src="https://unpkg.com/location_data_bj@1.0.3/public/dist/bundle.js"></script>
 ```
 
 2. With a local copy

@@ -2,7 +2,7 @@
   "name": "location_data_bj",
   "main": "./public/dist/bundle.js",
   "description": "Benin Republic territory data for web and JS apps",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": {
     "name": "Justin Y. Dah-kenangnon",
     "email": "dah.kenangnon@gmail.com"
