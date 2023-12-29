@@ -11,7 +11,7 @@ For raw data version, please visit [bj_location_data_raw](https://github.com/Dah
 >
 > Department: 12
 >
-> Twon: 77
+> Town: 77
 >
 > District: 546
 >

@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Justin Dah-kenangnon - All Rights Reserved.
+ * 
+ * @link https://dah-kenangnon.com
+ * For more details, see LICENSE.md file in root folder
+ */
 import { BjLocationData } from "./type";
 
 /** Department is the first administrative territory division in the country */
@@ -28,6 +35,9 @@ export interface INeighborhood {
 }
 
 
+/**
+ * The options to provide to the widget
+ */
 export interface BjLocationWidgetOptions {
 
     [key: string]: any;

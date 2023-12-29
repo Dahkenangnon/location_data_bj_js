@@ -3,7 +3,7 @@
     "target": "ES6",
     "module": "ESNext",
     "outDir": "public/dist",
-    "typeRoots": ["node_modules/@types", "src/@types"],
+    "typeRoots": ["node_modules/@types", "src/types"],
     "declaration": true,
     "rootDir": "./src",
     "moduleResolution": "node",
