@@ -92,7 +92,7 @@ For a sample, please see the [index.html file](/public/index.html)
 
 
 ## Disclaimer
-Please note that the dataset used is not official. It is based on the work done by the [Junior Gantin](https://github.com/nioperas06) at [this repos](https://github.com/nioperas06/bj-decoupage-territorial).
+Please note that the dataset used is not official. It is based on the work done by [Junior Gantin](https://github.com/nioperas06) at [this repos](https://github.com/nioperas06/bj-decoupage-territorial).
 
 
 ## License
