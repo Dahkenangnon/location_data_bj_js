@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img"
+     aria-label="BjLocationData — location data for Benin Republic">
+  <title>BjLocationData — location data for Benin Republic</title>
+
+  <defs>
+    <linearGradient id="og-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#0a358a"/>
+      <stop offset="55%" stop-color="#0e3fa8"/>
+      <stop offset="100%" stop-color="#1146b8"/>
+    </linearGradient>
+
+    <radialGradient id="og-halo" cx="0" cy="0" r="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#5b8cff" stop-opacity="0.20"/>
+      <stop offset="60%" stop-color="#5b8cff" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="og-dots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.9" fill="#ffffff" fill-opacity="0.08"/>
+    </pattern>
+
+    <pattern id="og-mapgrid" x="0" y="0" width="56" height="56" patternUnits="userSpaceOnUse">
+      <rect x="0.5" y="0.5" width="55" height="55" fill="none"
+            stroke="#ffffff" stroke-opacity="0.20" stroke-width="1"/>
+    </pattern>
+
+    <linearGradient id="og-mapFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#000000"/>
+      <stop offset="40%"  stop-color="#000000"/>
+      <stop offset="65%"  stop-color="#777777"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+    <mask id="og-mapMask">
+      <rect width="1280" height="640" fill="url(#og-mapFade)"/>
+    </mask>
+
+    <style><![CDATA[
+      .title    { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                  font-weight: 600; letter-spacing: -0.025em; fill: #ffffff; }
+      .title-em { font-family: ui-serif, "New York", "Iowan Old Style", Georgia, serif;
+                  font-style: italic; font-weight: 400; letter-spacing: -0.01em; fill: #b9d4ff; }
+      .sub      { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                  fill: #ffffff; }
+      .desc     { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                  fill: #ffffff; fill-opacity: 0.78; }
+      .mono     { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+      .pill-bg  { fill: #ffffff; }
+      .pill-tx  { fill: #0a358a; font-weight: 500; }
+      .marker   { stroke: #ffffff; stroke-opacity: 0.35; stroke-width: 1; fill: none; }
+    ]]></style>
+  </defs>
+
+  <!-- Background layers -->
+  <rect width="1280" height="640" fill="url(#og-bg)"/>
+  <rect width="1280" height="640" fill="url(#og-halo)"/>
+  <rect width="1280" height="640" fill="url(#og-dots)"/>
+
+  <!-- Right-side map grid decoration -->
+  <g mask="url(#og-mapMask)">
+    <rect x="640" y="-30" width="700" height="700" fill="url(#og-mapgrid)"/>
+    <!-- Map pin decorations -->
+    <circle cx="940"  cy="180" r="14" fill="#34d399" fill-opacity="0.60"/>
+    <path d="M940 194 L940 240" stroke="#34d399" stroke-opacity="0.45" stroke-width="3"/>
+    <circle cx="1080" cy="300" r="11" fill="#ffffff" fill-opacity="0.30"/>
+    <path d="M1080 311 L1080 350" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2.5"/>
+    <circle cx="1010" cy="120" r="10" fill="#34d399" fill-opacity="0.40"/>
+    <path d="M1010 130 L1010 162" stroke="#34d399" stroke-opacity="0.30" stroke-width="2.5"/>
+    <circle cx="1160" cy="400" r="12" fill="#34d399" fill-opacity="0.28"/>
+    <path d="M1160 412 L1160 445" stroke="#34d399" stroke-opacity="0.22" stroke-width="2.5"/>
+  </g>
+
+  <!-- Corner crosshair markers -->
+  <g class="marker">
+    <path d="M 32 22 L 32 42 M 22 32 L 42 32"/>
+    <path d="M 1248 22 L 1248 42 M 1238 32 L 1258 32"/>
+    <path d="M 32 598 L 32 618 M 22 608 L 42 608"/>
+    <path d="M 1248 598 L 1248 618 M 1238 608 L 1258 608"/>
+  </g>
+
+  <!-- ─── Eyebrow pill ─────────────────────────────────────── -->
+  <g transform="translate(72,90)">
+    <rect x="0" y="0" width="248" height="34" rx="17"
+          fill="#34d399" fill-opacity="0.16" stroke="#34d399" stroke-opacity="0.55"/>
+    <circle cx="16" cy="17" r="4" fill="#34d399"/>
+    <text x="30" y="22" class="mono" font-size="13" fill="#34d399"
+          letter-spacing="0.03em">OPEN SOURCE · v1.0.4 · JS</text>
+  </g>
+
+  <!-- ─── Headline ─────────────────────────────────────────── -->
+  <text x="72" y="240" class="title" font-size="84">BjLocationData</text>
+  <text x="72" y="328" class="title" font-size="84">for <tspan class="title-em">Benin&#160;Republic</tspan>.</text>
+
+  <!-- ─── Subtitle ─────────────────────────────────────────── -->
+  <text x="72" y="388" class="desc" font-size="22">
+    <tspan x="72" dy="0">Departments, towns, districts, and neighborhoods for Benin.</tspan>
+    <tspan x="72" dy="30">Zero dependencies — browser and Node.js ready.</tspan>
+  </text>
+
+  <!-- ─── Feature pills ────────────────────────────────────── -->
+  <g transform="translate(72,470)">
+    <!-- Pill 1 -->
+    <g>
+      <rect x="0" y="0" width="232" height="42" rx="21" class="pill-bg"/>
+      <g transform="translate(16,11)" stroke="#0a358a" stroke-width="1.7" fill="none"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 2 C6.1 2 3 5.1 3 9 C3 14.5 10 21 10 21 C10 21 17 14.5 17 9 C17 5.1 13.9 2 10 2 Z"/>
+        <circle cx="10" cy="9" r="2.5" fill="#0a358a" stroke="none"/>
+      </g>
+      <text x="48" y="27" class="pill-tx" font-size="15">Departments · Towns</text>
+    </g>
+    <!-- Pill 2 -->
+    <g transform="translate(250,0)">
+      <rect x="0" y="0" width="218" height="42" rx="21" class="pill-bg"/>
+      <g transform="translate(14,13)" stroke="#0a358a" stroke-width="1.7" fill="none"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 0 L0 8 L5 16"/>
+        <path d="M11 0 L16 8 L11 16"/>
+      </g>
+      <text x="46" y="27" class="pill-tx" font-size="15">Zero dependencies</text>
+    </g>
+    <!-- Pill 3 -->
+    <g transform="translate(486,0)">
+      <rect x="0" y="0" width="208" height="42" rx="21" class="pill-bg"/>
+      <g transform="translate(16,12)" stroke="#0a358a" stroke-width="1.7" fill="none"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="9" r="8"/>
+        <path d="M1 9 H17 M9 1 a12 12 0 0 1 0 16 a12 12 0 0 1 0 -16"/>
+      </g>
+      <text x="48" y="27" class="pill-tx" font-size="15">Browser &amp; Node.js</text>
+    </g>
+  </g>
+
+  <!-- ─── Bottom row: npm package + GitHub handle ──────────── -->
+  <line x1="72" y1="552" x2="1208" y2="552"
+        stroke="#ffffff" stroke-opacity="0.18" stroke-width="1"/>
+
+  <g transform="translate(72,572)">
+    <g transform="translate(0,8)" stroke="#b9d4ff" stroke-width="1.5" fill="none"
+       stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="9" r="8"/>
+      <path d="M1 9 H17 M9 1 a12 12 0 0 1 0 16 a12 12 0 0 1 0 -16"/>
+    </g>
+    <text x="28" y="22" class="mono" font-size="16" fill="#ffffff">npmjs.com/package/location_data_bj</text>
+  </g>
+
+  <text x="1208" y="594" class="mono" font-size="14" fill="#b9d4ff" text-anchor="end" fill-opacity="0.85">
+    github.com/Dahkenangnon/location_data_bj_js
+  </text>
+</svg>

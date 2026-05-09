@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img"
+     aria-label="BjLocationData — location hierarchy diagram. Departments, towns, districts, and neighborhoods for Benin Republic.">
+  <title>BjLocationData — location hierarchy diagram</title>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#0a358a"/>
+      <stop offset="55%" stop-color="#0e3fa8"/>
+      <stop offset="100%" stop-color="#1146b8"/>
+    </linearGradient>
+
+    <radialGradient id="halo" cx="600" cy="180" r="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#5b8cff" stop-opacity="0.20"/>
+      <stop offset="60%" stop-color="#5b8cff" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="dots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.9" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+
+    <style><![CDATA[
+      .title     { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                   font-weight: 600; letter-spacing: -0.02em; fill: #ffffff; }
+      .title-em  { font-family: ui-serif, "New York", "Iowan Old Style", Georgia, serif;
+                   font-style: italic; font-weight: 400; fill: #b9d4ff; }
+      .sub       { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                   fill: #ffffff; fill-opacity: 0.78; }
+      .mono      { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+      .label     { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                   font-weight: 600; fill: #ffffff; }
+      .label-dim { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                   font-weight: 500; fill: #b9d4ff; }
+      .label-mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+                    fill: #b9d4ff; font-weight: 500; }
+      .marker    { stroke: #ffffff; stroke-opacity: 0.35; stroke-width: 1; fill: none; }
+      .connector { stroke: #ffffff; stroke-opacity: 0.30; stroke-width: 1.5; fill: none; stroke-dasharray: 4 4; }
+      .connector-em { stroke: #34d399; stroke-opacity: 0.55; stroke-width: 1.5; fill: none; stroke-dasharray: 4 4; }
+    ]]></style>
+
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#ffffff" fill-opacity="0.55"/>
+    </marker>
+    <marker id="arrowhead-em" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#34d399" fill-opacity="0.75"/>
+    </marker>
+  </defs>
+
+  <!-- Background layers -->
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <rect width="1200" height="1200" fill="url(#halo)"/>
+  <rect width="1200" height="1200" fill="url(#dots)"/>
+
+  <!-- Corner crosshair markers -->
+  <g class="marker">
+    <path d="M 24 14 L 24 34 M 14 24 L 34 24"/>
+    <path d="M 1176 14 L 1176 34 M 1166 24 L 1186 24"/>
+    <path d="M 24 1166 L 24 1186 M 14 1176 L 34 1176"/>
+    <path d="M 1176 1166 L 1176 1186 M 1166 1176 L 1186 1176"/>
+  </g>
+
+  <!-- ─── Header ─────────────────────────────────────────────── -->
+  <text x="600" y="110" class="title" font-size="56" text-anchor="middle">BjLocationData</text>
+  <text x="600" y="160" class="sub" font-size="20" text-anchor="middle">
+    Location data for <tspan class="title-em" font-style="italic">Benin&#160;Republic</tspan>.
+  </text>
+  <text x="600" y="200" class="label-mono" font-size="13" text-anchor="middle">
+    12 DEPARTMENTS · OPEN SOURCE · ZERO DEPENDENCIES
+  </text>
+
+  <!-- ─── Level 1: Country node ─────────────────────────────── -->
+  <!-- Center box at y=270 -->
+  <g transform="translate(350,260)">
+    <rect x="0" y="0" width="500" height="70" rx="14"
+          fill="#34d399" fill-opacity="0.20" stroke="#34d399" stroke-opacity="0.70" stroke-width="2"/>
+    <!-- Map pin icon -->
+    <g transform="translate(20,18)" fill="none" stroke="#34d399" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 4 C12 4 8 8 8 13 C8 20 17 28 17 28 C17 28 26 20 26 13 C26 8 22 4 17 4 Z"/>
+      <circle cx="17" cy="13" r="4" fill="#34d399" stroke="none"/>
+    </g>
+    <text x="66" y="32" class="label" font-size="18" fill="#34d399">Benin Republic</text>
+    <text x="66" y="52" class="label-mono" font-size="12">Republic of Benin · West Africa</text>
+    <!-- Count badge -->
+    <rect x="380" y="16" width="100" height="36" rx="10"
+          fill="#34d399" fill-opacity="0.25" stroke="#34d399" stroke-opacity="0.50"/>
+    <text x="430" y="40" class="mono" font-size="14" fill="#34d399" text-anchor="middle">1 country</text>
+  </g>
+
+  <!-- Arrow down to Level 2 -->
+  <line x1="600" y1="330" x2="600" y2="380"
+        stroke="#34d399" stroke-opacity="0.55" stroke-width="2"
+        marker-end="url(#arrowhead-em)"/>
+
+  <!-- ─── Level 2: Departments ──────────────────────────────── -->
+  <g transform="translate(200,385)">
+    <rect x="0" y="0" width="800" height="70" rx="14"
+          fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1.5"/>
+    <g transform="translate(20,18)" fill="none" stroke="#b9d4ff" stroke-width="1.7"
+       stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 3 C10.6 3 7 6.6 7 11 C7 17 15 24 15 24 C15 24 23 17 23 11 C23 6.6 19.4 3 15 3 Z"/>
+      <circle cx="15" cy="11" r="3.5" fill="#b9d4ff" stroke="none"/>
+    </g>
+    <text x="62" y="32" class="label" font-size="18">Departments (12)</text>
+    <text x="62" y="52" class="label-dim" font-size="12">Alibori · Atacora · Atlantique · Borgou · Collines · Couffo · Donga · Littoral · Mono · Ouémé · Plateau · Zou</text>
+    <rect x="676" y="16" width="106" height="36" rx="10"
+          fill="#ffffff" fill-opacity="0.10" stroke="#ffffff" stroke-opacity="0.30"/>
+    <text x="729" y="40" class="mono" font-size="14" fill="#b9d4ff" text-anchor="middle">12 total</text>
+  </g>
+
+  <!-- Arrow down to Level 3 -->
+  <line x1="600" y1="455" x2="600" y2="505"
+        stroke="#ffffff" stroke-opacity="0.40" stroke-width="2"
+        marker-end="url(#arrowhead)"/>
+
+  <!-- ─── Level 3: Communes / Towns ─────────────────────────── -->
+  <g transform="translate(200,510)">
+    <rect x="0" y="0" width="800" height="70" rx="14"
+          fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1.5"/>
+    <g transform="translate(20,18)" fill="none" stroke="#b9d4ff" stroke-width="1.7"
+       stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="8" width="24" height="16" rx="2"/>
+      <path d="M3 12 h24 M10 8 V3 M20 8 V3"/>
+      <rect x="10" y="14" width="10" height="10" rx="1" fill="#b9d4ff" fill-opacity="0.3" stroke="none"/>
+    </g>
+    <text x="62" y="32" class="label" font-size="18">Communes &amp; Towns (77)</text>
+    <text x="62" y="52" class="label-dim" font-size="12">Cotonou · Porto-Novo · Parakou · Abomey-Calavi · Bohicon · and more…</text>
+    <rect x="676" y="16" width="106" height="36" rx="10"
+          fill="#ffffff" fill-opacity="0.10" stroke="#ffffff" stroke-opacity="0.30"/>
+    <text x="729" y="40" class="mono" font-size="14" fill="#b9d4ff" text-anchor="middle">77 total</text>
+  </g>
+
+  <!-- Arrow down to Level 4 -->
+  <line x1="600" y1="580" x2="600" y2="630"
+        stroke="#ffffff" stroke-opacity="0.40" stroke-width="2"
+        marker-end="url(#arrowhead)"/>
+
+  <!-- ─── Level 4: Districts / Arrondissements ──────────────── -->
+  <g transform="translate(200,635)">
+    <rect x="0" y="0" width="800" height="70" rx="14"
+          fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1.5"/>
+    <g transform="translate(20,16)" fill="none" stroke="#b9d4ff" stroke-width="1.7"
+       stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2"  y="2"  width="12" height="12" rx="2"/>
+      <rect x="16" y="2"  width="12" height="12" rx="2"/>
+      <rect x="2"  y="16" width="12" height="12" rx="2"/>
+      <rect x="16" y="16" width="12" height="12" rx="2"/>
+    </g>
+    <text x="62" y="32" class="label" font-size="18">Districts &amp; Arrondissements (546)</text>
+    <text x="62" y="52" class="label-dim" font-size="12">Administrative sub-divisions within each commune</text>
+    <rect x="676" y="16" width="106" height="36" rx="10"
+          fill="#ffffff" fill-opacity="0.10" stroke="#ffffff" stroke-opacity="0.30"/>
+    <text x="729" y="40" class="mono" font-size="14" fill="#b9d4ff" text-anchor="middle">546 total</text>
+  </g>
+
+  <!-- Arrow down to Level 5 -->
+  <line x1="600" y1="705" x2="600" y2="755"
+        stroke="#ffffff" stroke-opacity="0.40" stroke-width="2"
+        marker-end="url(#arrowhead)"/>
+
+  <!-- ─── Level 5: Neighborhoods / Quartiers ────────────────── -->
+  <g transform="translate(200,760)">
+    <rect x="0" y="0" width="800" height="70" rx="14"
+          fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.50" stroke-width="1.5"/>
+    <g transform="translate(20,16)" fill="none" stroke="#34d399" stroke-width="1.7"
+       stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2"  y="2"  width="10" height="10" rx="2"/>
+      <rect x="14" y="2"  width="10" height="10" rx="2"/>
+      <rect x="26" y="2"  width="4"  height="10" rx="2"/>
+      <rect x="2"  y="14" width="10" height="10" rx="2"/>
+      <rect x="14" y="14" width="10" height="10" rx="2" fill="#34d399" fill-opacity="0.30" stroke="#34d399"/>
+      <rect x="26" y="14" width="4"  height="10" rx="2"/>
+    </g>
+    <text x="62" y="32" class="label" font-size="18" fill="#34d399">Neighborhoods &amp; Quartiers</text>
+    <text x="62" y="52" class="label-mono" font-size="12">Finest granularity — quartiers within each arrondissement</text>
+    <rect x="676" y="16" width="106" height="36" rx="10"
+          fill="#34d399" fill-opacity="0.20" stroke="#34d399" stroke-opacity="0.50"/>
+    <text x="729" y="40" class="mono" font-size="14" fill="#34d399" text-anchor="middle">1000+</text>
+  </g>
+
+  <!-- ─── Feature cards ─────────────────────────────────────── -->
+  <line x1="120" y1="900" x2="1080" y2="900"
+        stroke="#ffffff" stroke-opacity="0.16" stroke-width="1"/>
+
+  <g transform="translate(120,940)">
+    <!-- Card 1: npm -->
+    <g>
+      <rect x="0" y="0" width="220" height="70" rx="10" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.18"/>
+      <text x="16" y="28" class="label" font-size="13">npm install</text>
+      <text x="16" y="44" class="label-mono" font-size="11">location_data_bj</text>
+      <text x="16" y="60" class="label-dim" font-size="10">v1.0.4</text>
+    </g>
+    <!-- Card 2: browser -->
+    <g transform="translate(240,0)">
+      <rect x="0" y="0" width="220" height="70" rx="10" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.18"/>
+      <text x="16" y="28" class="label" font-size="13">Zero dependencies</text>
+      <text x="16" y="44" class="label-dim" font-size="11">Browser &amp; Node.js</text>
+      <text x="16" y="60" class="label-dim" font-size="10">UMD · ESM</text>
+    </g>
+    <!-- Card 3: TypeScript -->
+    <g transform="translate(480,0)">
+      <rect x="0" y="0" width="220" height="70" rx="10" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.18"/>
+      <text x="16" y="28" class="label" font-size="13">TypeScript ready</text>
+      <text x="16" y="44" class="label-dim" font-size="11">Full type definitions</text>
+      <text x="16" y="60" class="label-dim" font-size="10">.d.ts included</text>
+    </g>
+    <!-- Card 4: MIT -->
+    <g transform="translate(720,0)">
+      <rect x="0" y="0" width="240" height="70" rx="10" fill="#34d399" fill-opacity="0.10" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.5"/>
+      <text x="16" y="28" class="label" font-size="13" fill="#34d399">Open source</text>
+      <text x="16" y="44" class="label-mono" font-size="11" fill="#34d399">MIT License</text>
+      <text x="16" y="60" class="label-mono" font-size="10" fill="#34d399" fill-opacity="0.80">free to use · fork · contribute</text>
+    </g>
+  </g>
+
+  <!-- ─── Footer ─────────────────────────────────────────────── -->
+  <g transform="translate(0,1080)">
+    <text x="120" y="40" class="label-mono" font-size="14" fill="#b9d4ff">
+      github.com/Dahkenangnon/location_data_bj_js
+    </text>
+    <text x="1080" y="40" class="label-mono" font-size="12" fill="#b9d4ff" text-anchor="end" fill-opacity="0.7">
+      MIT License · Open Data
+    </text>
+  </g>
+</svg>
