@@ -1,159 +1,867 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>BjLocationData Demo </title>
-        <style>
-            /* General styles for the widget container */
-            #locationDataBJ-widget {
-                font-family: Arial, sans-serif;
-                max-width: 600px;
-                margin: auto;
-                padding: 20px;
-                border: 1px solid #ccc;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            }
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>BjLocationData — Location data for Benin Republic</title>
+  <meta name="description" content="Open JavaScript library providing departments, towns, districts, and neighborhoods for Benin Republic. Zero dependencies, browser and Node.js ready.">
 
-            /* Styles for search container */
-            .search-container {
-                margin-bottom: 20px;
-            }
+  <!-- Apply theme before paint to avoid flash -->
+  <script>
+    (function () {
+      try {
+        var s = localStorage.getItem('bjloc-theme');
+        document.documentElement.setAttribute('data-theme', s === 'dark' ? 'dark' : 'light');
+      } catch (_) {}
+    })();
+  </script>
 
-            .search-container input[type="text"] {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
+  <style>
+    /* ─── Tokens ──────────────────────────────────────────────── */
+    :root {
+      --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", "Consolas", monospace;
+      --font-serif: ui-serif, "New York", "Iowan Old Style", Georgia, serif;
+    }
 
-            .search-results-container {
-                border-top: 1px solid #ccc;
-                padding-top: 10px;
-            }
+    [data-theme="light"] {
+      --bg:          #fbfbf9;
+      --bg-grad:     radial-gradient(ellipse 1100px 500px at 50% -100px,
+                       rgba(16, 185, 129, 0.08), transparent 70%);
+      --surface:     #ffffff;
+      --surface-2:   #f5f5f3;
+      --line:        #e7e7e4;
+      --line-strong: #d4d4d1;
+      --ink:         #0c0c0a;
+      --ink-mid:     #404040;
+      --ink-soft:    #6b6b68;
+      --ink-faint:   #a3a3a0;
+      --accent:      #047857;
+      --accent-2:    #10b981;
+      --accent-bg:   #ecfdf5;
+      --accent-line: #a7f3d0;
+      --code-bg:     #f8f8f6;
+      --code-border: #ececea;
+      --code-ink:    #1f2937;
+      --kw:          #047857;
+      --str:         #b45309;
+      --num:         #4338ca;
+      --com:         #9ca3af;
+      --shadow-sm:   0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:   0 6px 24px -6px rgba(15,23,42,0.08), 0 2px 6px -2px rgba(15,23,42,0.05);
+    }
 
-            /* Styles for select elements in the form */
-            select {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                background-color: white;
-            }
+    [data-theme="dark"] {
+      --bg:          #08090a;
+      --bg-grad:     radial-gradient(ellipse 1100px 500px at 50% -100px,
+                       rgba(16, 185, 129, 0.10), transparent 70%);
+      --surface:     #111214;
+      --surface-2:   #18191c;
+      --line:        #25262a;
+      --line-strong: #383a3f;
+      --ink:         #fafafa;
+      --ink-mid:     #d4d4d4;
+      --ink-soft:    #a1a1a1;
+      --ink-faint:   #737373;
+      --accent:      #34d399;
+      --accent-2:    #10b981;
+      --accent-bg:   #052e21;
+      --accent-line: #064e3b;
+      --code-bg:     #0e0f11;
+      --code-border: #1f2024;
+      --code-ink:    #e5e7eb;
+      --kw:          #4ade80;
+      --str:         #fbbf24;
+      --num:         #818cf8;
+      --com:         #6b7280;
+      --shadow-sm:   0 1px 2px rgba(0,0,0,0.5);
+      --shadow-md:   0 6px 24px -6px rgba(0,0,0,0.5), 0 2px 6px -2px rgba(0,0,0,0.3);
+    }
 
-            /* Style for individual containers */
-            .department-container,
-            .town-container,
-            .district-container,
-            .neighborhood-container {
-                margin-bottom: 10px;
-            }
+    /* ─── Base ────────────────────────────────────────────────── */
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 50% 0;
+      background: var(--bg-grad);
+      pointer-events: none;
+      z-index: -1;
+    }
+    a { color: inherit; text-decoration: none; transition: color 0.15s, opacity 0.15s; }
+    a:hover { color: var(--accent); }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+    button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+    button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.15; margin: 0; }
 
+    /* ─── Layout ──────────────────────────────────────────────── */
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
-            /* Optional style , just for this page */
-            footer {
-                text-align: center;
-                margin-top: 50px;
-                position: fixed;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                background-color: #f1f1f1;
-                color: #333;
-                padding: 10px;
-            }
+    /* ─── Topbar ──────────────────────────────────────────────── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(180%) blur(12px);
+      -webkit-backdrop-filter: saturate(180%) blur(12px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      font-size: 15px;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .brand:hover { opacity: 0.85; color: var(--ink); }
+    .nav { display: flex; gap: 4px; align-items: center; }
+    .nav-link {
+      padding: 8px 12px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      border-radius: 6px;
+    }
+    .nav-link:hover { color: var(--ink); background: var(--surface-2); }
+    .nav-divider { width: 1px; height: 18px; background: var(--line); margin: 0 4px; }
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      color: var(--ink-soft);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .theme-toggle:hover { color: var(--ink); border-color: var(--line-strong); background: var(--surface-2); }
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
-            footer a {
-                color: #333;
-            }
+    /* ─── Hero ────────────────────────────────────────────────── */
+    .hero { padding: 72px 0 56px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 8px;
+      border: 1px solid var(--accent-line);
+      background: var(--accent-bg);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      margin-bottom: 24px;
+    }
+    .eyebrow .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-2);
+    }
+    h1.hero-title {
+      font-size: clamp(36px, 6vw, 60px);
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      max-width: 18ch;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-family: var(--font-serif);
+      font-weight: 400;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 1.6vw, 19px);
+      color: var(--ink-mid);
+      max-width: 58ch;
+      margin-bottom: 32px;
+      line-height: 1.55;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: transform 0.1s, box-shadow 0.15s, background 0.15s;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color: white;
+      box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+    .btn-primary:hover { color: white; box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.22); }
+    .btn-secondary { border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); }
+    .btn-secondary:hover { color: var(--ink); border-color: var(--accent); background: var(--surface-2); }
+    .btn-secondary svg { color: var(--ink-soft); }
 
-            .text-center {
-                text-align: center;
-            }
+    /* ─── Demo card ───────────────────────────────────────────── */
+    .demo-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px 24px;
+      box-shadow: var(--shadow-md);
+      max-width: 520px;
+      position: relative;
+      overflow: hidden;
+    }
+    .demo-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
+      opacity: 0.6;
+    }
+    .demo-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .demo-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-faint);
+      font-weight: 600;
+    }
+    .demo-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      padding: 3px 7px;
+      border: 1px solid var(--accent-line);
+      background: var(--accent-bg);
+      border-radius: 5px;
+    }
 
-            /* Highlight the JSON outputted in the state element  */
-            #state {
-                font-family: 'Courier New', monospace;
-                white-space:  'break-space';
-                /* Preserves the JSON formatting */
-                background-color: #f5f5f5;
-                /* Light grey background for contrast */
-                padding: 10px;
-                border-radius: 4px;
-                border: 1px solid #ddd;
-                overflow-x: auto;
-                /* Allows horizontal scrolling if needed */
-                color: #333;
-                /* Default text color */
-            }
-        </style>
-    </head>
+    /* Override widget selects to match design system */
+    #bj-location-data-holder select {
+      width: 100%;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%236b6b68' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 4.5 6 7.5 9 4.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+    #bj-location-data-holder select:hover { border-color: var(--line-strong); background-color: var(--surface-2); }
+    #bj-location-data-holder select:focus { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+    #bj-location-data-holder label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
+      letter-spacing: 0.01em;
+    }
+    #bj-location-data-holder input[type="text"] {
+      width: 100%;
+      padding: 9px 12px;
+      margin-bottom: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      transition: border-color 0.15s;
+    }
+    #bj-location-data-holder input[type="text"]:focus { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+    #bj-location-data-holder input[type="text"]::placeholder { color: var(--ink-faint); }
 
-    <body>
+    /* State output */
+    .state-block {
+      margin-top: 16px;
+      padding: 12px 14px;
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--code-ink);
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .state-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
 
-        <h1 class="text-center">BjLocationData, javascript library</h1>
-        <p class="text-center">Simple javascript library to get location data of Benin Republic</p>
-        <p class="text-center">Please see the source code this page to see more other option, like searching for location, etc.</p>
+    /* ─── Sections ────────────────────────────────────────────── */
+    section { padding: 56px 0; }
+    section + section { border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent); }
+    .section-eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+      max-width: 24ch;
+    }
+    .section-lede { font-size: 16px; color: var(--ink-mid); max-width: 60ch; margin: 0 0 36px; }
 
-        <div id="bj-location-data-holder" class="bj-location-data-holder">Here</div>
+    /* ─── Code blocks ─────────────────────────────────────────── */
+    .code-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 760px) {
+      .code-grid { grid-template-columns: repeat(2, 1fr); }
+      .code-grid .code-card.span2 { grid-column: span 2; }
+    }
+    .code-card {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .code-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--code-border);
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+    .code-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--surface-2);
+      color: var(--ink-soft);
+    }
+    .copy-btn {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 5px;
+      color: var(--ink-soft);
+      transition: color 0.15s, background 0.15s;
+    }
+    .copy-btn:hover { color: var(--ink); background: var(--surface-2); }
+    .copy-btn.copied { color: var(--accent); }
+    pre {
+      margin: 0;
+      padding: 16px 18px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--code-ink);
+      overflow-x: auto;
+      white-space: pre;
+      tab-size: 2;
+    }
+    pre .kw  { color: var(--kw);  font-weight: 500; }
+    pre .str { color: var(--str); }
+    pre .num { color: var(--num); }
+    pre .com { color: var(--com); font-style: italic; }
 
-        <div id="state" class="text-center"></div>
-        <footer>
-            <p>Developed with ❤️ by <a href="https://dah-kenangnon.com" target="_blank">Dah Kenangnon</a></p>
-        </footer>
+    /* ─── Stats grid ──────────────────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+    .stat-card dt {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .stat-card dd {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--accent);
+    }
 
-        <script src="./dist/bundle.js"></script>
+    /* ─── Feature cards ───────────────────────────────────────── */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .feat-card {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 16px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .feat-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .feat-card-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 14.5px;
+      color: var(--ink);
+    }
+    .feat-card-title svg { color: var(--ink-faint); flex-shrink: 0; }
+    .feat-card:hover .feat-card-title svg { color: var(--accent); }
+    .feat-card small { color: var(--ink-soft); font-size: 12.5px; line-height: 1.45; }
 
-        <!-- Now initialize the script and start using it-->
-        <script>
-            let locationData = {
-                department: null,
-                town: null,
-                district: null,
-                neighborhood: null,
-            };
-            const stateDiv = document.getElementById('state');
-            stateDiv.innerHTML = JSON.stringify(locationData);
+    /* ─── Footer ──────────────────────────────────────────────── */
+    footer {
+      padding: 40px 0 64px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    footer a { color: var(--ink-mid); border-bottom: 1px solid transparent; }
+    footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .foot-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .foot-grid p { margin: 0; max-width: 56ch; }
 
-                BjLocationData.init({
-                   // useSearch: true,
-                    holderQuerySelector: '#bj-location-data-holder',
-                    // departmentSelectLabel: 'Départment',
-                    // townSelectLabel: 'Sélectionner une commune',
-                    // districtSelectLabel: 'Sélectionner un arrondissement',
-                    // neighborhoodSelectLabel: 'Sélectionner un quartier',
-                    useHierarchy: true,
-                    searchPlaceholder: 'Rechercher une localité',
-                    searchNoResultsText: 'Aucun résultat trouvé',
-                    useDefaultSelect: true,
-                    level: ['town', 'neighborhood', 'district', 'department',],
-                    onChanges: (value) => {
-                        console.log("onChanges ", value)
-                    },
+    /* ─── Mobile ──────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 48px 0 36px; }
+      section { padding: 40px 0; }
+      .nav { display: none; }
+      .topbar-inner { height: 52px; }
+      .theme-toggle-mobile { display: inline-flex !important; }
+    }
+    @media (min-width: 601px) {
+      .theme-toggle-mobile { display: none !important; }
+    }
+  </style>
+</head>
+<body>
 
-                    onNeighborhoodChange: (value) => {
-                        locationData.neighborhood = value;
-                        stateDiv.innerHTML = JSON.stringify(locationData);
-                    },
+<!-- ─── Header ──────────────────────────────────────────────────── -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a href="/" class="brand" aria-label="BjLocationData home">
+      <span class="brand-mark" aria-hidden="true">BJ</span>
+      <span>BjLocationData</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-link" href="#demo">Demo</a>
+      <a class="nav-link" href="#quickstart">Quick start</a>
+      <a class="nav-link" href="#data">Data</a>
+      <a class="nav-link" href="https://github.com/Dahkenangnon/location_data_bj_js" target="_blank" rel="noopener">GitHub</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path><path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path><path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+      </button>
+    </nav>
+    <!-- Mobile theme toggle (shown only on small screens via CSS) -->
+    <button id="theme-toggle-mobile" class="theme-toggle theme-toggle-mobile" type="button"
+            aria-label="Toggle dark mode" title="Toggle theme" style="display:none">
+      <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+      <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path><path d="M12 20v2"></path>
+        <path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path>
+        <path d="M2 12h2"></path><path d="M20 12h2"></path>
+        <path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path>
+      </svg>
+    </button>
+  </div>
+</header>
 
-                    onDistrictChange: (value) => {
-                        locationData.district = value;
-                        stateDiv.innerHTML = JSON.stringify(locationData);
-                    },
+<!-- ─── Hero ─────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Open · v1.0.4 · Benin Republic</span>
+    <h1 class="hero-title">Location data for <em>Benin Republic</em>.</h1>
+    <p class="hero-sub">BjLocationData is an open JavaScript library providing departments, towns, districts, and neighborhoods for Benin Republic. Drop a ready-made hierarchical selector into any web page — no backend, no API keys, no dependencies.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#quickstart">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="8 18 14 12 8 6"></polyline>
+        </svg>
+        Quick start
+      </a>
+      <a class="btn btn-secondary" href="https://github.com/Dahkenangnon/location_data_bj_js" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.8 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.7.9 1.2 1.9 1.2 3.2 0 4.5-2.8 5.5-5.4 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.6 18.4.5 12 .5z"/>
+        </svg>
+        View on GitHub
+      </a>
+    </div>
 
-                    onTownChange: (value) => {
-                        locationData.town = value;
-                        stateDiv.innerHTML = JSON.stringify(locationData);
-                    },
+    <!-- Live demo card -->
+    <article class="demo-card" id="demo" aria-label="Live location picker demo">
+      <div class="demo-head">
+        <span class="demo-eyebrow">Live demo</span>
+        <span class="demo-badge">interactive</span>
+      </div>
+      <div id="bj-location-data-holder"></div>
+      <div class="state-label">Selected location</div>
+      <div class="state-block" id="state" aria-live="polite" aria-label="Selected location JSON"></div>
+    </article>
+  </div>
+</section>
 
-                    onDepartmentChange: (value) => {
-                        locationData.department = value;
-                        stateDiv.innerHTML = JSON.stringify(locationData);
-                    },
-                });
-        </script>
-    </body>
+<!-- ─── Quick start ───────────────────────────────────────────────── -->
+<section id="quickstart">
+  <div class="wrap">
+    <p class="section-eyebrow">Quick start</p>
+    <h2 class="section-title">Three ways to integrate.</h2>
+    <p class="section-lede">Use the CDN bundle directly, install via npm, or import the ES module. All three expose the same <code>BjLocationData</code> API.</p>
+
+    <div class="code-grid">
+
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-tag">CDN (script tag)</span>
+          <button type="button" class="copy-btn" data-copy='&lt;script src="https://unpkg.com/location_data_bj/public/dist/bundle.js"&gt;&lt;/script&gt;
+&lt;div id="holder"&gt;&lt;/div&gt;
+&lt;script&gt;
+  BjLocationData.init({ holderQuerySelector: "#holder" });
+&lt;/script&gt;'>Copy</button>
+        </div>
+<pre><span class="kw">&lt;script</span> src=<span class="str">"https://unpkg.com/location_data_bj/…/bundle.js"</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;div</span> id=<span class="str">"holder"</span><span class="kw">&gt;&lt;/div&gt;</span>
+<span class="kw">&lt;script&gt;</span>
+  BjLocationData.init({ holderQuerySelector: <span class="str">"#holder"</span> });
+<span class="kw">&lt;/script&gt;</span></pre>
+      </div>
+
+      <div class="code-card">
+        <div class="code-head">
+          <span class="code-tag">npm / ES module</span>
+          <button type="button" class="copy-btn" data-copy="npm install location_data_bj
+
+import { departmentList, townsList, districtList, neighborhoodList } from 'location_data_bj'
+
+const departments = departmentList()
+const towns = townsList()">Copy</button>
+        </div>
+<pre><span class="kw">npm install</span> location_data_bj
+
+<span class="kw">import</span> { departmentList, townsList } <span class="kw">from</span> <span class="str">'location_data_bj'</span>
+
+<span class="kw">const</span> departments = departmentList()   <span class="com">// → IDepartment[]</span>
+<span class="kw">const</span> towns       = townsList()         <span class="com">// → ITown[]</span></pre>
+      </div>
+
+      <div class="code-card span2">
+        <div class="code-head">
+          <span class="code-tag">Full widget initialisation</span>
+          <button type="button" class="copy-btn" data-copy="BjLocationData.init({
+  holderQuerySelector: '#holder',
+  useHierarchy: true,
+  useDefaultSelect: true,
+  level: ['department', 'town', 'district', 'neighborhood'],
+  onDepartmentChange:  (v) => console.log('department', v),
+  onTownChange:        (v) => console.log('town', v),
+  onDistrictChange:    (v) => console.log('district', v),
+  onNeighborhoodChange:(v) => console.log('neighborhood', v),
+  onChanges:           (v) => console.log('any change', v),
+});">Copy</button>
+        </div>
+<pre>BjLocationData.init({
+  holderQuerySelector: <span class="str">'#holder'</span>,
+  useHierarchy:        <span class="kw">true</span>,          <span class="com">// filter child lists when parent changes</span>
+  useDefaultSelect:    <span class="kw">true</span>,          <span class="com">// include a blank "– select –" option</span>
+  level: [<span class="str">'department'</span>, <span class="str">'town'</span>, <span class="str">'district'</span>, <span class="str">'neighborhood'</span>],
+
+  onDepartmentChange:   (v) =&gt; console.log(<span class="str">'department'</span>, v),
+  onTownChange:         (v) =&gt; console.log(<span class="str">'town'</span>, v),
+  onDistrictChange:     (v) =&gt; console.log(<span class="str">'district'</span>, v),
+  onNeighborhoodChange: (v) =&gt; console.log(<span class="str">'neighborhood'</span>, v),
+  onChanges:            (v) =&gt; console.log(<span class="str">'any change'</span>, v),
+});</pre>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Data coverage ─────────────────────────────────────────────── -->
+<section id="data">
+  <div class="wrap">
+    <p class="section-eyebrow">Data</p>
+    <h2 class="section-title">Complete territorial coverage.</h2>
+    <p class="section-lede">All administrative divisions of Benin Republic — from the 12 departments down to individual neighborhoods — shipped as static data in the bundle.</p>
+
+    <dl class="stats-grid">
+      <div class="stat-card"><dt>Departments</dt><dd>12</dd></div>
+      <div class="stat-card"><dt>Towns (Communes)</dt><dd>77</dd></div>
+      <div class="stat-card"><dt>Districts (Arrondissements)</dt><dd>546</dd></div>
+      <div class="stat-card"><dt>Neighborhoods (Quartiers)</dt><dd>5000+</dd></div>
+    </dl>
+
+    <div class="feat-grid">
+
+      <div class="feat-card">
+        <span class="feat-card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Hierarchical selection
+        </span>
+        <small>Each level automatically filters to only show children of the selected parent.</small>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          Built-in search
+        </span>
+        <small>Optional full-text search across all location levels with configurable placeholder and no-results text.</small>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+          Zero dependencies
+        </span>
+        <small>Pure TypeScript compiled to a single self-contained bundle. No runtime dependencies.</small>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Framework agnostic
+        </span>
+        <small>Works in plain HTML, React, Vue, Angular, or any environment that can load a script tag or npm package.</small>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          Typed data
+        </span>
+        <small>Full TypeScript interfaces (<code>IDepartment</code>, <code>ITown</code>, <code>IDistrict</code>, <code>INeighborhood</code>) exported for type-safe usage.</small>
+      </div>
+
+      <div class="feat-card">
+        <span class="feat-card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          Composable API
+        </span>
+        <small>Use the low-level data functions (<code>departmentList</code>, <code>townsList</code>, etc.) independently to build your own UI.</small>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ───────────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap foot-grid">
+    <p>Built and maintained by <a href="https://dah-kenangnon.com" target="_blank" rel="noopener">Justin Dah-kenangnon</a>. Benin Republic territory data for web and JS apps.</p>
+    <p>License: <a href="https://github.com/Dahkenangnon/location_data_bj_js/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT</a> &middot; Data accuracy not guaranteed &middot; Not affiliated with any government.</p>
+  </div>
+</footer>
+
+<script src="./dist/bundle.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  // ─── Theme toggle ──────────────────────────────────────────
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('bjloc-theme', theme); } catch (_) {}
+  }
+  function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  }
+  document.querySelectorAll('#theme-toggle, #theme-toggle-mobile').forEach(function (b) {
+    b.addEventListener('click', toggleTheme);
+  });
+
+  // Show mobile toggle only on small screens
+  function syncMobileToggle() {
+    var mobile = document.getElementById('theme-toggle-mobile');
+    if (!mobile) return;
+    mobile.style.display = window.matchMedia('(max-width: 600px)').matches ? 'inline-flex' : 'none';
+  }
+  syncMobileToggle();
+  window.addEventListener('resize', syncMobileToggle);
+
+  // ─── Copy buttons ──────────────────────────────────────────
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy') || '';
+      // Decode HTML entities in data-copy attribute
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      navigator.clipboard.writeText(ta.value).then(function () {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1500);
+      }).catch(function () {});
+    });
+  });
+
+  // ─── Location widget initialisation ───────────────────────
+  var locationData = { department: null, town: null, district: null, neighborhood: null };
+  var stateEl = document.getElementById('state');
+
+  function updateState() {
+    stateEl.textContent = JSON.stringify(locationData, null, 2);
+  }
+  updateState();
+
+  BjLocationData.init({
+    holderQuerySelector: '#bj-location-data-holder',
+    useHierarchy: true,
+    useDefaultSelect: true,
+    level: ['department', 'town', 'district', 'neighborhood'],
+    onChanges: function (value) { console.log('onChanges', value); },
+    onDepartmentChange: function (value) {
+      locationData.department = value;
+      updateState();
+    },
+    onTownChange: function (value) {
+      locationData.town = value;
+      updateState();
+    },
+    onDistrictChange: function (value) {
+      locationData.district = value;
+      updateState();
+    },
+    onNeighborhoodChange: function (value) {
+      locationData.neighborhood = value;
+      updateState();
+    },
+  });
+})();
+</script>
+</body>
 </html>
