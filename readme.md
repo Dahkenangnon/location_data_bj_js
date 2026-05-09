@@ -1,4 +1,4 @@
-![BjLocationData — Location data for Benin Republic](./assets/banner.png)
+![BjLocationData — Location data for Benin Republic](./public/banner.png)
 
 # location_data_bj
 
