@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img"
+     aria-label="BjLocationData logo mark">
+  <title>BjLocationData</title>
+
+  <defs>
+    <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#0a358a"/>
+      <stop offset="60%" stop-color="#0e3fa8"/>
+      <stop offset="100%" stop-color="#1146b8"/>
+    </linearGradient>
+    <radialGradient id="logo-halo" cx="0" cy="0" r="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#5b8cff" stop-opacity="0.22"/>
+      <stop offset="65%" stop-color="#5b8cff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Rounded square base -->
+  <rect width="256" height="256" rx="56" fill="url(#logo-bg)"/>
+  <rect width="256" height="256" rx="56" fill="url(#logo-halo)"/>
+
+  <!-- Subtle dot grid suggesting a map -->
+  <pattern id="map-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="1" r="1" fill="#ffffff" fill-opacity="0.07"/>
+  </pattern>
+  <rect width="256" height="256" rx="56" fill="url(#map-dots)"/>
+
+  <!-- Map pin — main shape -->
+  <path d="M128 52 C105 52 86 71 86 94 C86 126 128 192 128 192 C128 192 170 126 170 94 C170 71 151 52 128 52 Z"
+        fill="#34d399" fill-opacity="0.90"/>
+  <!-- Map pin inner circle (hole) -->
+  <circle cx="128" cy="94" r="22" fill="#0e3fa8"/>
+  <!-- Subtle ring inside the pin hole -->
+  <circle cx="128" cy="94" r="12" fill="#34d399" fill-opacity="0.35"/>
+</svg>

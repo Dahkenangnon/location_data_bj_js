@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img"
+     aria-label="BjLocationData — location data for Benin Republic">
+  <title>BjLocationData — location data for Benin Republic</title>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#0a358a"/>
+      <stop offset="55%" stop-color="#0e3fa8"/>
+      <stop offset="100%" stop-color="#1146b8"/>
+    </linearGradient>
+
+    <pattern id="dots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.9" fill="#ffffff" fill-opacity="0.08"/>
+    </pattern>
+
+    <!-- Map grid pattern for right-side decoration -->
+    <pattern id="mapgrid" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+      <rect x="0.5" y="0.5" width="47" height="47" fill="none"
+            stroke="#ffffff" stroke-opacity="0.18" stroke-width="1"/>
+    </pattern>
+
+    <radialGradient id="halo" cx="0" cy="0" r="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"  stop-color="#5b8cff" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#5b8cff" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="mapFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#000000"/>
+      <stop offset="45%"  stop-color="#000000"/>
+      <stop offset="70%"  stop-color="#777777"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+    <mask id="mapMask">
+      <rect width="1200" height="420" fill="url(#mapFade)"/>
+    </mask>
+
+    <style><![CDATA[
+      .title    { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                  font-weight: 600; letter-spacing: -0.02em; fill: #ffffff; }
+      .title-em { font-family: ui-serif, "New York", "Iowan Old Style", Georgia, serif;
+                  font-style: italic; font-weight: 400; letter-spacing: -0.01em; fill: #b9d4ff; }
+      .sub      { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                  fill: #ffffff; }
+      .desc     { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+                  fill: #ffffff; fill-opacity: 0.78; }
+      .mono     { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+      .pill-bg  { fill: #ffffff; }
+      .pill-tx  { fill: #0a358a; font-weight: 500; }
+      .cta-bg   { fill: #ffffff; }
+      .cta-tx   { fill: #0a358a; font-weight: 600; }
+      .marker   { stroke: #ffffff; stroke-opacity: 0.35; stroke-width: 1; fill: none; }
+    ]]></style>
+  </defs>
+
+  <!-- Background layers -->
+  <rect width="1200" height="420" fill="url(#bg)"/>
+  <rect width="1200" height="420" fill="url(#halo)"/>
+  <rect width="1200" height="420" fill="url(#dots)"/>
+
+  <!-- Right-side map grid decoration -->
+  <g mask="url(#mapMask)">
+    <rect x="700" y="-20" width="540" height="460" fill="url(#mapgrid)"/>
+    <!-- Map pin decorations -->
+    <circle cx="900"  cy="160" r="10" fill="#34d399" fill-opacity="0.55"/>
+    <path d="M900 170 L900 200" stroke="#34d399" stroke-opacity="0.40" stroke-width="2"/>
+    <circle cx="1020" cy="220" r="8"  fill="#ffffff" fill-opacity="0.30"/>
+    <path d="M1020 228 L1020 252" stroke="#ffffff" stroke-opacity="0.25" stroke-width="2"/>
+    <circle cx="970"  cy="110" r="7"  fill="#34d399" fill-opacity="0.35"/>
+    <path d="M970 117 L970 138" stroke="#34d399" stroke-opacity="0.28" stroke-width="2"/>
+    <circle cx="1080" cy="290" r="9"  fill="#34d399" fill-opacity="0.25"/>
+    <path d="M1080 299 L1080 320" stroke="#34d399" stroke-opacity="0.20" stroke-width="2"/>
+  </g>
+
+  <!-- Corner crosshair markers -->
+  <g class="marker">
+    <path d="M 24 14 L 24 34 M 14 24 L 34 24"/>
+    <path d="M 1176 14 L 1176 34 M 1166 24 L 1186 24"/>
+    <path d="M 24 386 L 24 406 M 14 396 L 34 396"/>
+    <path d="M 1176 386 L 1176 406 M 1166 396 L 1186 396"/>
+  </g>
+
+  <!-- ─── Headline ─────────────────────────────────────────── -->
+  <text x="64" y="138" class="title" font-size="62">BjLocationData</text>
+  <text x="64" y="208" class="title" font-size="62">for <tspan class="title-em">Benin&#160;Republic</tspan>.</text>
+
+  <!-- ─── Feature pills ────────────────────────────────────── -->
+  <g transform="translate(64,256)">
+    <!-- Pill 1: map pin icon -->
+    <g>
+      <rect x="0" y="0" width="202" height="34" rx="17" class="pill-bg"/>
+      <g transform="translate(13,7)" stroke="#0a358a" stroke-width="1.6" fill="none"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 2 C5.7 2 3 4.7 3 8 C3 13 9 19 9 19 C9 19 15 13 15 8 C15 4.7 12.3 2 9 2 Z"
+              fill="none"/>
+        <circle cx="9" cy="8" r="2.2" fill="#0a358a" stroke="none"/>
+      </g>
+      <text x="40" y="22" class="pill-tx" font-size="13.5">Departments · Towns</text>
+    </g>
+    <!-- Pill 2: code icon -->
+    <g transform="translate(218,0)">
+      <rect x="0" y="0" width="178" height="34" rx="17" class="pill-bg"/>
+      <g transform="translate(13,10)" stroke="#0a358a" stroke-width="1.6" fill="none"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 0 L0 7 L5 14"/>
+        <path d="M9 0 L14 7 L9 14"/>
+      </g>
+      <text x="40" y="22" class="pill-tx" font-size="13.5">Zero dependencies</text>
+    </g>
+    <!-- Pill 3: globe icon -->
+    <g transform="translate(412,0)">
+      <rect x="0" y="0" width="184" height="34" rx="17" class="pill-bg"/>
+      <g transform="translate(13,8)" stroke="#0a358a" stroke-width="1.6" fill="none"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="9" r="8"/>
+        <path d="M1 9 H17 M9 1 a12 12 0 0 1 0 16 a12 12 0 0 1 0 -16"/>
+      </g>
+      <text x="40" y="22" class="pill-tx" font-size="13.5">Browser &amp; Node.js</text>
+    </g>
+  </g>
+
+  <!-- Horizontal divider -->
+  <line x1="64" y1="316" x2="1136" y2="316"
+        stroke="#ffffff" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- ─── Bottom row: domain | description | CTA ─────────── -->
+
+  <!-- Domain pill -->
+  <g transform="translate(64,340)">
+    <rect x="0" y="0" width="260" height="48" rx="10" class="pill-bg"/>
+    <g transform="translate(13,12)" stroke="#0a358a" stroke-width="1.7" fill="none"
+       stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2 C7 2 3 6 3 11 C3 18 12 25 12 25 C12 25 21 18 21 11 C21 6 17 2 12 2 Z"
+            transform="scale(0.9) translate(0,1)"/>
+      <circle cx="12" cy="11" r="3" fill="#0a358a" stroke="none" transform="scale(0.9) translate(0,1)"/>
+    </g>
+    <text x="48" y="30" class="pill-tx mono" font-size="13.5">location_data_bj · npm</text>
+  </g>
+
+  <!-- Description -->
+  <text x="348" y="362" class="desc" font-size="13.5">
+    <tspan x="348" dy="0">Departments, towns, districts, and neighborhoods for Benin Republic —</tspan>
+    <tspan x="348" dy="18">no API keys, no backend, no rate limits.</tspan>
+  </text>
+
+  <!-- CTA button -->
+  <g transform="translate(950,340)" cursor="pointer">
+    <rect x="0" y="0" width="186" height="48" rx="10" class="cta-bg"/>
+    <text x="16" y="30" class="cta-tx" font-size="14.5">Explore BjLocData</text>
+    <g transform="translate(155,18)" stroke="#0a358a" stroke-width="1.8" fill="none"
+       stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 6 H12 M7 1 L12 6 L7 11"/>
+    </g>
+  </g>
+</svg>
