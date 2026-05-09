@@ -1,3 +1,5 @@
+![BjLocationData — Location data for Benin Republic](./assets/banner.png)
+
 # location_data_bj
 
 > Benin Republic administrative location data for JavaScript/TypeScript web and Node.js applications.
