@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "ESNext",
+    "module": "Node16",
     "outDir": "public/dist",
     "typeRoots": ["node_modules/@types", "src/types"],
+    "types": ["node", "jest"],
     "declaration": true,
     "rootDir": "./src",
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
+    "ignoreDeprecations": "6.0",
+    "isolatedModules": true,
     "strict": true,
     "esModuleInterop": true,
     "sourceMap": true,
