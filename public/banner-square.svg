@@ -189,7 +189,7 @@
       <rect x="0" y="0" width="220" height="70" rx="10" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.18"/>
       <text x="16" y="28" class="label" font-size="13">npm install</text>
       <text x="16" y="44" class="label-mono" font-size="11">location_data_bj</text>
-      <text x="16" y="60" class="label-dim" font-size="10">v1.0.4</text>
+      <text x="16" y="60" class="label-dim" font-size="10">latest</text>
     </g>
     <!-- Card 2: browser -->
     <g transform="translate(240,0)">
