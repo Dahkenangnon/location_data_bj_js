@@ -6,7 +6,7 @@
 
 [![npm version](https://img.shields.io/npm/v/location_data_bj.svg)](https://www.npmjs.com/package/location_data_bj)
 [![npm downloads](https://img.shields.io/npm/dm/location_data_bj.svg)](https://www.npmjs.com/package/location_data_bj)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
 
 Covers the full four-level administrative hierarchy — **departments → towns → districts → neighborhoods** — with lookup, relational query, search, and an optional drop-in UI widget.
@@ -268,6 +268,6 @@ The dataset is **not official government data**. It is derived from community-ma
 
 ## License
 
-MIT © [Justin Y. Dah-Kenangnon](https://dah-kenangnon.com)
+Apache-2.0 © [Justin Y. Dah-Kenangnon](https://dah-kenangnon.com)
 
 See [LICENSE](LICENSE) for the full text.
