@@ -364,6 +364,29 @@
     #bj-location-data-holder input[type="text"]:focus { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
     #bj-location-data-holder input[type="text"]::placeholder { color: var(--ink-faint); }
 
+    /* Level labels via ::before on each generated container */
+    #bj-location-data-holder .department-container,
+    #bj-location-data-holder .town-container,
+    #bj-location-data-holder .district-container,
+    #bj-location-data-holder .neighborhood-container {
+      display: block;
+    }
+    #bj-location-data-holder .department-container::before,
+    #bj-location-data-holder .town-container::before,
+    #bj-location-data-holder .district-container::before,
+    #bj-location-data-holder .neighborhood-container::before {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
+      letter-spacing: 0.01em;
+    }
+    #bj-location-data-holder .department-container::before   { content: "Department"; }
+    #bj-location-data-holder .town-container::before         { content: "City / Town"; }
+    #bj-location-data-holder .district-container::before     { content: "District"; }
+    #bj-location-data-holder .neighborhood-container::before { content: "Neighborhood"; }
+
     /* State output */
     .state-block {
       margin-top: 16px;
