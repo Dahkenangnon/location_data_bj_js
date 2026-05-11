@@ -540,5 +540,7 @@ export default {
     searchNeighborhoods
 };
 
-
+// Re-export types so consumers can import them directly from 'location_data_bj'
+export type { IDepartment, ITown, IDistrict, INeighborhood, BjLocationWidgetOptions } from './types/interfaces';
+export type { BjLocationData, BjLocationType } from './types/type';
 

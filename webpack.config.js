@@ -4,15 +4,12 @@ module.exports = {
     entry: './src/index.ts',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'public/dist'),
-        sourceMapFilename: "[name].js.map" 
-    },
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'public/dist'),
+        path: path.resolve(__dirname, 'dist'),
+        sourceMapFilename: "[name].js.map",
         library: 'BjLocationData',
-        libraryTarget: 'umd', 
-        umdNamedDefine: true
+        libraryTarget: 'umd',
+        umdNamedDefine: true,
+        globalObject: 'globalThis'
     },
     devtool: 'source-map',
     resolve: {

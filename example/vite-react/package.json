@@ -1,0 +1,24 @@
+{
+  "name": "location_data_bj-example-vite-react",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Vite + React consumer — resolves dist/esm/index.js via bundler 'import' condition, enables tree-shaking",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "location_data_bj": "file:../..",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.2",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.8"
+  }
+}

@@ -1,8 +1,17 @@
 {
   "name": "location_data_bj",
-  "main": "./public/dist/bundle.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "description": "Benin Republic territory data for web and JS apps",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "keywords": [
     "Benin",
     "Benin Republic",
@@ -34,15 +43,14 @@
   "license": "Apache-2.0",
   "scripts": {
     "dev": "webpack --mode=development --watch",
-    "build": "webpack --mode=production",
+    "build": "rm -rf dist && tsup && webpack --mode=production && mkdir -p public/dist && cp dist/bundle.js public/dist/bundle.js",
     "test:n": "jest --notify  --detectOpenHandles",
     "test": "jest",
     "coverage": "jest --coverage",
     "test:watch": "jest --watch"
   },
   "files": [
-    "public/dist",
-    "src",
+    "dist",
     "readme.md",
     "LICENSE"
   ],
@@ -50,11 +58,12 @@
     "node": ">=18.17.0"
   },
   "devDependencies": {
-    "node-notifier": "^10.0.1",
     "@types/jest": "^30.0.0",
     "jest": "^30.4.2",
+    "node-notifier": "^10.0.1",
     "ts-jest": "^29.4.9",
     "ts-loader": "^9.5.7",
+    "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "webpack": "^5.106.2",
     "webpack-cli": "^7.0.2"
